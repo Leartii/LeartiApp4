@@ -64,7 +64,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
     } else{
       console.log("defined");
       exercise = {description : req.body.description,
-                                    duration : req.body.duration,
+                                    duration : parseInt(req.body.duration),
                                     date : (new Date(req.body.date)).toDateString()};
    } 
    
