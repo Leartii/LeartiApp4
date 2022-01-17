@@ -98,7 +98,7 @@ app.get('/api/users/:_id/logs', (req,res) => {
           date : e.date
         }
       })
-      res.json({username : data.username, count : filtered.length, _id : data._id, logs : filtered});
+      res.json({username : data.username, count : filtered.length, _id : data._id, log : filtered});
     }
   })
 })
