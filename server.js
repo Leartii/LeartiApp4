@@ -15,7 +15,7 @@ const userSchema = new Schema({
   logs : [{
     description : String,
     duration : Number,
-    date : String
+    date : String 
   }]
 });
 
@@ -54,11 +54,12 @@ app.get('/api/users', (req,res) => {
 
 app.post('/api/users/:_id/exercises', (req,res) => {
    let exercise;
+   console.log(typeof req.body.duration);
    console.log((new Date()).toDateString());
    if(req.body.date === '' || req.body.date === undefined){
       console.log("undefined")
       exercise = {description : req.body.description,
-                                    duration : req.body.duration,
+                                    duration : parseInt(req.body.duration),
                                     date : (new Date()).toDateString()}
     } else{
       console.log("defined");
@@ -72,7 +73,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
         console.log(err);
       } else{
         res.json({
-          username : data.username, description : exercise.description, duration : ParseInt(exercise.duration), date : exercise.date, _id : data._id
+          username : data.username, description : exercise.description, duration : exercise.duration, date : exercise.date, _id : data._id
         })
       }
    })
@@ -93,7 +94,7 @@ app.get('/api/users/:_id/logs', (req,res) => {
       filtered = filtered.map(e => {
         return{
           description : e.description,
-          duration : ParseInt(e.duration),
+          duration : e.duration,
           date : e.date
         }
       })
