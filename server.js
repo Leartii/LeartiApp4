@@ -72,7 +72,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
         console.log(err);
       } else{
         res.json({
-          username : data.username, description : exercise.description, duration : exercise.duration, date : exercise.date, _id : data._id
+          username : data.username, description : exercise.description, duration : ParseInt(exercise.duration), date : exercise.date, _id : data._id
         })
       }
    })
@@ -90,6 +90,13 @@ app.get('/api/users/:_id/logs', (req,res) => {
     else{
       let arr = data.logs;
       let filtered = filter(arr, req.query.from, req.query.to, req.query.limit);
+      filtered = filtered.map(e => {
+        return{
+          description : e.description,
+          duration : ParseInt(e.duration),
+          date : e.date
+        }
+      })
       res.json({username : data.username, count : filtered.length, _id : data._id, logs : filtered});
     }
   })
